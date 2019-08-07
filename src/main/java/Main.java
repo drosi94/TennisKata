@@ -22,8 +22,8 @@ public class Main {
 
     public static void main(String[] args) {
         // Initialize the arrays which holding if the player took the point at turn *index*
-        final List<Short> firstPlayersPoints = new ArrayList<Short>(Collections.nCopies(10, (short) 0));
-        final List<Short> secondPlayersPoints =  new ArrayList<Short>(Collections.nCopies(10, (short) 0));
+        final List<Short> firstPlayersPoints = new ArrayList<>(Collections.nCopies(10, (short) 0));
+        final List<Short> secondPlayersPoints = new ArrayList<>(Collections.nCopies(10, (short) 0));
 
         int turn = 0;
         while (true) {
