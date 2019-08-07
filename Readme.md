@@ -4,6 +4,8 @@ Tennis challenge crafted for Wemanity.
 
 Requires Java 8 + (JDK >1.8)
 
+Requires Maven for running the tests & coverage
+
 _Build_
 ```bash
 cd /kataTennis/src/main/java
