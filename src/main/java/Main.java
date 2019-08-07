@@ -1,9 +1,6 @@
 import exception.GameAlreadyFinishedException;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * KataTenis for Wemanity code challenge
@@ -25,16 +22,16 @@ public class Main {
 
     public static void main(String[] args) {
         // Initialize the arrays which holding if the player took the point at turn *index*
-        final int[] firstPlayersPoints = new int[100];
-        final int[] secondPlayersPoints = new int[100];
+        final List<Short> firstPlayersPoints = new ArrayList<Short>(Collections.nCopies(10, (short) 0));
+        final List<Short> secondPlayersPoints =  new ArrayList<Short>(Collections.nCopies(10, (short) 0));
 
         int turn = 0;
         while (true) {
             int point = playPoint(); // Play point returns 0 or 1 meaning if the first (0) or the second (1) player won the point
             if (point == 0) {
-                firstPlayersPoints[turn] = 1;
+                firstPlayersPoints.add(turn, (short) 1);
             } else {
-                secondPlayersPoints[turn] = 1;
+                secondPlayersPoints.add(turn, (short) 1);
             }
             Boolean[] isWinner = calculateWinner(firstPlayersPoints, secondPlayersPoints); // Calculates if the game it ends (first boolean)
             // and if it is if the first player won (second boolean)
@@ -54,15 +51,16 @@ public class Main {
     }
 
     /**
-     * Calculates if the game is ended and if the first player won
+     * Calculates if the game has ended and if the first player won
      *
      * @param firstPlayersPoints,  array holding for each turn if first player won the point (0 or 1)
      * @param secondPlayersPoints, array holding for each turn if first player won the point (0 or 1)
      * @return Boolean[], boolean array of 2 elements, first boolean if the game is ended, second boolean if first player was winner
      */
-    protected static Boolean[] calculateWinner(final int[] firstPlayersPoints, final int[] secondPlayersPoints) {
-        int firstsPlayerWins = Arrays.stream(firstPlayersPoints).sum();
-        int secondsPlayerWins = Arrays.stream(secondPlayersPoints).sum();
+    protected static Boolean[] calculateWinner(final List<Short> firstPlayersPoints, final List<Short> secondPlayersPoints) {
+
+        int firstsPlayerWins = sum(firstPlayersPoints);
+        int secondsPlayerWins = sum(secondPlayersPoints);
         int scoreDifference = firstsPlayerWins - secondsPlayerWins;
 
         boolean isGameEnded = (firstsPlayerWins > 3 || secondsPlayerWins > 3) && (scoreDifference > 1 || scoreDifference < -1);
@@ -82,9 +80,9 @@ public class Main {
      * @param secondPlayersPoints, array holding for each turn if first player won the point (0 or 1)
      * @return int[], int array of 2 elements, first int the score of first player, secont int the score of second player
      */
-    protected static int[] calculateScore(final int[] firstPlayersPoints, final int[] secondPlayersPoints) throws GameAlreadyFinishedException {
-        int firstsPlayerWins = Arrays.stream(firstPlayersPoints).sum();
-        int secondsPlayerWins = Arrays.stream(secondPlayersPoints).sum();
+    protected static int[] calculateScore(final List<Short> firstPlayersPoints, final List<Short> secondPlayersPoints) throws GameAlreadyFinishedException {
+        int firstsPlayerWins = sum(firstPlayersPoints);
+        int secondsPlayerWins = sum(secondPlayersPoints);
 
         int scoreDifference = firstsPlayerWins - secondsPlayerWins;
 
@@ -114,7 +112,6 @@ public class Main {
         return new int[]{firstPlayersScore, secondPlayerScore};
     }
 
-
     protected static void printScore(Integer firstPlayersScore, Integer secondPlayersScore, int turn) {
         System.out.printf("Turn: %d\nScore: %s - %s\n", turn, pointMappings.get(firstPlayersScore), pointMappings.get(secondPlayersScore));
     }
@@ -123,5 +120,9 @@ public class Main {
     protected static int playPoint() {
         final Random random = new Random();
         return random.nextInt(2);
+    }
+
+    private static int sum(final List<Short> points) {
+        return Arrays.stream(points.stream().mapToInt(i -> i).toArray()).sum();
     }
 }
