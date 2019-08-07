@@ -32,6 +32,15 @@ public class MainTest {
     }
 
     @Test
+    public void calculateScore_ShouldBeFortyAdvance_Success() throws GameAlreadyFinishedException {
+        final Short[] firstPlayersPoints = {1, 1, 1, 0, 0, 0, 0, 1, 0};
+        final Short[] secondPlayersPoints = {0, 0, 0, 1, 1, 1, 1, 0, 1};
+        final int[] score = Main.calculateScore(Arrays.asList(firstPlayersPoints), Arrays.asList(secondPlayersPoints));
+        assertEquals(score[0], 40);
+        assertEquals(score[1], 41);
+    }
+
+    @Test
     public void calculateScore_ShouldBeFortyForty_Success() throws GameAlreadyFinishedException {
         final Short[] firstPlayersPoints = {1, 1, 1, 0, 0, 0, 1, 0};
         final Short[] secondPlayersPoints = {0, 0, 0, 1, 1, 1, 0, 1};
