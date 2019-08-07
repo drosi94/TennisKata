@@ -1,5 +1,9 @@
 **Tennis Kata**
 
+Tennis challenge crafted for Wemanity.
+
+Requires Java 8 + (JDK >1.8)
+
 _Build_
 ```bash
 cd /kataTennis/src/main/java
