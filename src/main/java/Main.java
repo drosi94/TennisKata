@@ -55,7 +55,7 @@ public class Main {
      *
      * @param firstPlayersPoints,  array holding for each turn if first player won the point (0 or 1)
      * @param secondPlayersPoints, array holding for each turn if first player won the point (0 or 1)
-     * @return Boolean[], boolean array of 2 elements, first boolean if the game is ended, second boolean if first player was winner
+     * @return Boolean[], boolean array of 2 elements, first boolean if the game has ended, second boolean if first player was winner
      */
     protected static Boolean[] calculateWinner(final List<Short> firstPlayersPoints, final List<Short> secondPlayersPoints) {
 
@@ -78,7 +78,7 @@ public class Main {
      *
      * @param firstPlayersPoints,  array holding for each turn if first player won the point (0 or 1)
      * @param secondPlayersPoints, array holding for each turn if first player won the point (0 or 1)
-     * @return int[], int array of 2 elements, first int the score of first player, secont int the score of second player
+     * @return int[], int array of 2 elements, first int the score of first player, second int the score of second player
      */
     protected static int[] calculateScore(final List<Short> firstPlayersPoints, final List<Short> secondPlayersPoints) throws GameAlreadyFinishedException {
         int firstsPlayerWins = sum(firstPlayersPoints);

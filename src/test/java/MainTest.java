@@ -3,8 +3,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class MainTest {
 
@@ -46,5 +45,33 @@ public class MainTest {
         final Short[] firstPlayersPoints = {1, 1, 1, 0, 0, 0, 1, 1};
         final Short[] secondPlayersPoints = {0, 0, 0, 1, 1, 1, 0, 0};
         final int[] score = Main.calculateScore(Arrays.asList(firstPlayersPoints), Arrays.asList(secondPlayersPoints));
+    }
+
+
+    @Test
+    public void calculateWinner_ShouldFirstPlayerWin_Success() {
+        final Short[] firstPlayersPoints = {1, 1, 1, 1};
+        final Short[] secondPlayersPoints = {0, 0, 0, 0};
+        final Boolean[] isWinner = Main.calculateWinner(Arrays.asList(firstPlayersPoints), Arrays.asList(secondPlayersPoints));
+        assertTrue(isWinner[0]);
+        assertTrue(isWinner[1]);
+    }
+
+    @Test
+    public void calculateWinner_ShouldSecondPlayerWin_Success() {
+        final Short[] firstPlayersPoints = {0, 0, 0, 0};
+        final Short[] secondPlayersPoints = {1, 1, 1, 1};
+        final Boolean[] isWinner = Main.calculateWinner(Arrays.asList(firstPlayersPoints), Arrays.asList(secondPlayersPoints));
+        assertTrue(isWinner[0]);
+        assertFalse(isWinner[1]);
+    }
+
+    @Test
+    public void calculateWinner_ShouldNeitherPlayerWin_Fail() {
+        final Short[] firstPlayersPoints = {1, 1, 0};
+        final Short[] secondPlayersPoints = {0, 0, 1};
+        final Boolean[] isWinner = Main.calculateWinner(Arrays.asList(firstPlayersPoints), Arrays.asList(secondPlayersPoints));
+        assertFalse(isWinner[0]);
+        assertNull(isWinner[1]);
     }
 }
