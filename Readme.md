@@ -15,6 +15,12 @@ _Run_
 java Main
 ```
 
+_Test & Coverage_
+```bash
+mvn clean test
+```
+target/site/jacoco/index.html to check the coverage
+
 _Output Example_
 ```bash
 Turn: 1
