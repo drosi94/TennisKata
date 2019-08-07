@@ -1,3 +1,5 @@
+import exception.GameAlreadyFinishedException;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -5,6 +7,7 @@ import java.util.Random;
 
 /**
  * KataTenis for Wemanity code challenge
+ *
  * @author vdrosatos
  */
 public class Main {
@@ -34,12 +37,17 @@ public class Main {
                 secondPlayersPoints[turn] = 1;
             }
             Boolean[] isWinner = calculateWinner(firstPlayersPoints, secondPlayersPoints); // Calculates if the game it ends (first boolean)
-                                                                                           // and if it is if the first player won (second boolean)
+            // and if it is if the first player won (second boolean)
             if (isWinner[0]) {
                 System.out.printf("\n\n*************\n\nWinner is player %d at turn %d\n\n**************\n\n", (isWinner[1] ? 1 : 2), (turn + 1));
                 break;
             }
-            int[] score = calculateScore(firstPlayersPoints, secondPlayersPoints); // Calculate the score at this turn
+            int[] score = new int[0];
+            try {
+                score = calculateScore(firstPlayersPoints, secondPlayersPoints); // Calculate the score at this turn
+            } catch (GameAlreadyFinishedException e) {
+                e.printStackTrace();
+            }
             turn++;
             printScore(score[0], score[1], turn); // Prints the score at console
         }
@@ -47,11 +55,12 @@ public class Main {
 
     /**
      * Calculates if the game is ended and if the first player won
-     * @param firstPlayersPoints, array holding for each turn if first player won the point (0 or 1)
+     *
+     * @param firstPlayersPoints,  array holding for each turn if first player won the point (0 or 1)
      * @param secondPlayersPoints, array holding for each turn if first player won the point (0 or 1)
      * @return Boolean[], boolean array of 2 elements, first boolean if the game is ended, second boolean if first player was winner
      */
-    private static Boolean[] calculateWinner(final int[] firstPlayersPoints, final int[] secondPlayersPoints) {
+    protected static Boolean[] calculateWinner(final int[] firstPlayersPoints, final int[] secondPlayersPoints) {
         int firstsPlayerWins = Arrays.stream(firstPlayersPoints).sum();
         int secondsPlayerWins = Arrays.stream(secondPlayersPoints).sum();
         int scoreDifference = firstsPlayerWins - secondsPlayerWins;
@@ -68,13 +77,20 @@ public class Main {
 
     /**
      * Calculates the score of the game at the specific turn
-     * @param firstPlayersPoints, array holding for each turn if first player won the point (0 or 1)
+     *
+     * @param firstPlayersPoints,  array holding for each turn if first player won the point (0 or 1)
      * @param secondPlayersPoints, array holding for each turn if first player won the point (0 or 1)
      * @return int[], int array of 2 elements, first int the score of first player, secont int the score of second player
      */
-    private static int[] calculateScore(final int[] firstPlayersPoints, final int[] secondPlayersPoints) {
+    protected static int[] calculateScore(final int[] firstPlayersPoints, final int[] secondPlayersPoints) throws GameAlreadyFinishedException {
         int firstsPlayerWins = Arrays.stream(firstPlayersPoints).sum();
         int secondsPlayerWins = Arrays.stream(secondPlayersPoints).sum();
+
+        int scoreDifference = firstsPlayerWins - secondsPlayerWins;
+
+        if ((firstsPlayerWins > 3 || secondsPlayerWins > 3) && (scoreDifference > 1 || scoreDifference < -1)) {
+            throw new GameAlreadyFinishedException("The game has already finished");
+        }
 
         int firstPlayersScore;
         int secondPlayerScore;
@@ -83,7 +99,6 @@ public class Main {
             firstPlayersScore = firstsPlayerWins * 15 - (firstsPlayerWins == 3 ? 5 : 0);
             secondPlayerScore = secondsPlayerWins * 15 - (secondsPlayerWins == 3 ? 5 : 0);
         } else {
-            int scoreDifference = firstsPlayerWins - secondsPlayerWins;
             if (scoreDifference == 1) {
                 firstPlayersScore = 41;
                 secondPlayerScore = 40;
@@ -100,12 +115,12 @@ public class Main {
     }
 
 
-    private static void printScore(Integer firstPlayersScore, Integer secondPlayersScore, int turn) {
+    protected static void printScore(Integer firstPlayersScore, Integer secondPlayersScore, int turn) {
         System.out.printf("Turn: %d\nScore: %s - %s\n", turn, pointMappings.get(firstPlayersScore), pointMappings.get(secondPlayersScore));
     }
 
 
-    private static int playPoint() {
+    protected static int playPoint() {
         final Random random = new Random();
         return random.nextInt(2);
     }
