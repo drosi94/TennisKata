@@ -33,7 +33,7 @@ public class Main {
             } else {
                 secondPlayersPoints.add(turn, (short) 1);
             }
-            Boolean[] isWinner = calculateWinner(firstPlayersPoints, secondPlayersPoints); // Calculates if the game it ends (first boolean)
+            Boolean[] isWinner = calculateWinner(firstPlayersPoints, secondPlayersPoints); // Calculates if the game has ended (first boolean)
             // and if it is if the first player won (second boolean)
             if (isWinner[0]) {
                 System.out.printf("\n\n*************\n\nWinner is player %d at turn %d\n\n**************\n\n", (isWinner[1] ? 1 : 2), (turn + 1));
