@@ -1,11 +1,28 @@
 import exception.GameAlreadyFinishedException;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
 public class MainTest {
+
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @After
+    public void restoreStreams() {
+        System.setOut(originalOut);
+    }
 
     @Test
     public void playPoint_GenerateNumberZeroOr1_Success() {
@@ -76,11 +93,24 @@ public class MainTest {
     }
 
     @Test
-    public void calculateWinner_ShouldNeitherPlayerWin_Fail() {
+    public void printScore_ShouldNeitherPlayerWin_Fail() {
         final Short[] firstPlayersPoints = {1, 1, 0};
         final Short[] secondPlayersPoints = {0, 0, 1};
         final Boolean[] isWinner = Main.calculateWinner(Arrays.asList(firstPlayersPoints), Arrays.asList(secondPlayersPoints));
         assertFalse(isWinner[0]);
         assertNull(isWinner[1]);
+    }
+
+
+    @Test
+    public void printScore_ShouldPrintFortyForty_Success() {
+        Main.printScore(40, 40, 7);
+        assertTrue("Turn: 7\nScore: Forty - Forty\n".contains(outContent.toString()));
+    }
+
+    @Test
+    public void printScore_ShouldPrintAdvanceForty_Success() {
+        Main.printScore(41, 40, 8);
+        assertTrue("Turn: 8\nScore: Advance - Forty\n".contains(outContent.toString()));
     }
 }
