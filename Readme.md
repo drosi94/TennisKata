@@ -39,4 +39,12 @@ Turn: 10
 Score: Forty - Forty
 Turn: 11
 Score: Advance - Forty
+
+*************
+
+Winner is player 1 at turn 12
+
+**************
+
+
 ```
