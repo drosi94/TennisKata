@@ -21,19 +21,21 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        final Main game = new Main();
+
         // Initialize the arrays which holding if the player took the point at turn *index*
         final List<Short> firstPlayersPoints = new ArrayList<>(Collections.nCopies(4, (short) 0));
         final List<Short> secondPlayersPoints = new ArrayList<>(Collections.nCopies(4, (short) 0));
 
         int turn = 0;
         while (true) {
-            int point = playPoint(); // Play point returns 0 or 1 meaning if the first (0) or the second (1) player won the point
+            int point = game.playPoint(); // Play point returns 0 or 1 meaning if the first (0) or the second (1) player won the point
             if (point == 0) {
                 firstPlayersPoints.add(turn, (short) 1);
             } else {
                 secondPlayersPoints.add(turn, (short) 1);
             }
-            Boolean[] isWinner = calculateWinner(firstPlayersPoints, secondPlayersPoints); // Calculates if the game has ended (first boolean)
+            Boolean[] isWinner = game.calculateWinner(firstPlayersPoints, secondPlayersPoints); // Calculates if the game has ended (first boolean)
             // and if it is if the first player won (second boolean)
             if (isWinner[0]) {
                 System.out.printf("\n\n*************\n\nWinner is player %d at turn %d\n\n**************\n\n", (isWinner[1] ? 1 : 2), (turn + 1));
@@ -41,12 +43,12 @@ public class Main {
             }
             int[] score = new int[0];
             try {
-                score = calculateScore(firstPlayersPoints, secondPlayersPoints); // Calculate the score at this turn
+                score = game.calculateScore(firstPlayersPoints, secondPlayersPoints); // Calculate the score at this turn
             } catch (GameAlreadyFinishedException e) {
                 e.printStackTrace();
             }
             turn++;
-            printScore(score[0], score[1], turn); // Prints the score at console
+            game.printScore(score[0], score[1], turn); // Prints the score at console
         }
     }
 
@@ -57,7 +59,7 @@ public class Main {
      * @param secondPlayersPoints, array holding for each turn if first player won the point (0 or 1)
      * @return Boolean[], boolean array of 2 elements, first boolean if the game has ended, second boolean if first player was winner
      */
-    protected static Boolean[] calculateWinner(final List<Short> firstPlayersPoints, final List<Short> secondPlayersPoints) {
+    protected Boolean[] calculateWinner(final List<Short> firstPlayersPoints, final List<Short> secondPlayersPoints) {
 
         int firstsPlayerWins = sum(firstPlayersPoints);
         int secondsPlayerWins = sum(secondPlayersPoints);
@@ -80,7 +82,7 @@ public class Main {
      * @param secondPlayersPoints, array holding for each turn if first player won the point (0 or 1)
      * @return int[], int array of 2 elements, first int the score of first player, second int the score of second player
      */
-    protected static int[] calculateScore(final List<Short> firstPlayersPoints, final List<Short> secondPlayersPoints) throws GameAlreadyFinishedException {
+    protected int[] calculateScore(final List<Short> firstPlayersPoints, final List<Short> secondPlayersPoints) throws GameAlreadyFinishedException {
         int firstsPlayerWins = sum(firstPlayersPoints);
         int secondsPlayerWins = sum(secondPlayersPoints);
 
@@ -112,17 +114,17 @@ public class Main {
         return new int[]{firstPlayersScore, secondPlayerScore};
     }
 
-    protected static void printScore(Integer firstPlayersScore, Integer secondPlayersScore, int turn) {
+    protected void printScore(Integer firstPlayersScore, Integer secondPlayersScore, int turn) {
         System.out.printf("Turn: %d\nScore: %s - %s\n", turn, pointMappings.get(firstPlayersScore), pointMappings.get(secondPlayersScore));
     }
 
 
-    protected static int playPoint() {
+    protected int playPoint() {
         final Random random = new Random();
         return random.nextInt(2);
     }
 
-    private static int sum(final List<Short> points) {
+    private int sum(final List<Short> points) {
         return Arrays.stream(points.stream().mapToInt(i -> i).toArray()).sum();
     }
 }
