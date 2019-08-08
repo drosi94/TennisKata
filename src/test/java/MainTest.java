@@ -93,7 +93,7 @@ public class MainTest {
     }
 
     @Test
-    public void printScore_ShouldNeitherPlayerWin_Fail() {
+    public void calculateWinner_ShouldNeitherPlayerWin_Fail() {
         final Short[] firstPlayersPoints = {1, 1, 0};
         final Short[] secondPlayersPoints = {0, 0, 1};
         final Boolean[] isWinner = Main.calculateWinner(Arrays.asList(firstPlayersPoints), Arrays.asList(secondPlayersPoints));
