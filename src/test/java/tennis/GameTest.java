@@ -1,35 +1,26 @@
 package tennis;
 
 import exception.GameAlreadyFinishedException;
-import org.junit.After;
-import org.junit.Before;
+import logging.StaticAppender;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class GameTest {
-
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
-    
     private Game game;
 
     public GameTest() {
         game = Game.getInstance();
     }
 
-    @Before
-    public void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-    }
-
-    @After
-    public void restoreStreams() {
-        System.setOut(originalOut);
+    @BeforeEach
+    public void clearLoggingStatements() {
+        StaticAppender.clearEvents();
     }
 
     @Test
@@ -113,12 +104,13 @@ public class GameTest {
     @Test
     public void printScore_ShouldPrintFortyForty_Success() {
         game.printScore(40, 40, 7);
-        assertTrue("Turn: 7\nScore: Forty - Forty\n".contains(outContent.toString()));
+        assertThat(StaticAppender.getEvents()).extracting("message").containsOnly("Turn: 7\nScore: Forty - Forty\n");
     }
 
     @Test
     public void printScore_ShouldPrintAdvanceForty_Success() {
         game.printScore(41, 40, 8);
-        assertTrue("Turn: 8\nScore: Advance - Forty\n".contains(outContent.toString()));
+        assertThat(StaticAppender.getEvents()).extracting("message").containsOnly("Turn: 8\nScore: Advance - Forty\n");
+
     }
 }
