@@ -1,5 +1,7 @@
+import exception.GameAlreadyFinishedException;
 import logging.StaticAppender;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import tennis.GameState;
 import tennis.model.Player;
@@ -32,6 +34,21 @@ public class TestGameState {
 
         assertEquals(Point.FIFTEEN, player1.getScore());
         assertEquals(Point.FORTY, player2.getScore());
+    }
+
+    @Test
+    public void test_CalculateScore_ShouldThrowGameAlreadyFinishedException_Fail() {
+        Player player1 = new Player();
+        Player player2 = new Player();
+        GameState gameState = new GameState(player1, player2);
+        Boolean[] pointPerRoundFirstPlayer ={false, true, false, true, true, false, true, true};
+        Boolean[] pointPerRoundSecondPlayer ={true, false, true, false, false, true, false, false};
+        player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
+        player2.setPointPerRoundList(Arrays.asList(pointPerRoundSecondPlayer));
+
+        gameState.calculateWinner();
+
+        Assertions.assertThrows(GameAlreadyFinishedException.class, gameState::calculateScore);
     }
 
     // Use case 'Print score based on player points and turn'

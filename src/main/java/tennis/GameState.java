@@ -1,5 +1,6 @@
 package tennis;
 
+import exception.GameAlreadyFinishedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tennis.model.Player;
@@ -23,6 +24,9 @@ public class GameState {
     }
 
     public void calculateScore() {
+        if (gameFinished) {
+            throw new GameAlreadyFinishedException("The game has already finished. You can not calculate the score.");
+        }
         int firstsPlayerWins = countTrue(player1.getPointPerRoundList());
         int secondsPlayerWins = countTrue(player2.getPointPerRoundList());
         int scoreDifference = firstsPlayerWins - secondsPlayerWins;
