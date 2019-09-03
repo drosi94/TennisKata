@@ -9,7 +9,7 @@ import java.util.Random;
 public class Game {
     private static Game singleInstance = null;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GameState.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(Game.class.getName());
 
     private Game() {
     }
