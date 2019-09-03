@@ -1,11 +1,20 @@
+import logging.StaticAppender;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import tennis.model.Player;
+import tennis.model.Point;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestMain {
+
+    @BeforeEach
+    public void clearLoggingStatements() {
+        StaticAppender.clearEvents();
+    }
 
     // Use case 'Calculate game score based on the points'
     @Test
@@ -24,5 +33,17 @@ public class TestMain {
         assertEquals(2, score.length);
         assertEquals(15, score[0]);
         assertEquals(40, score[1]);
+    }
+
+    // Use case 'Print score based on player points and turn'
+    @Test
+    public void test_PrintScore_ShouldPrintFortyForty_Success() {
+        Main main = new Main();
+        Point firstPlayerScore = Point.FORTY;
+        Point scondPlayerScore = Point.FORTY;
+
+        main.printScore(firstPlayerScore, scondPlayerScore, 1);
+
+        assertThat(StaticAppender.getEvents()).extracting("message").containsOnly("Turn: 1\nScore: Forty - Forty\n");
     }
 }
