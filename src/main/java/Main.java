@@ -1,4 +1,7 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tennis.model.Player;
+import tennis.model.Point;
 
 import java.util.List;
 
@@ -8,6 +11,8 @@ import java.util.List;
  * @author vdrosatos
  */
 public class Main {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class.getName());
+
     public int[] calculateScore(Player player1, Player player2) {
         int firstsPlayerWins = countTrue(player1.getPointPerRoundList());
         int secondsPlayerWins = countTrue(player2.getPointPerRoundList());
@@ -32,6 +37,10 @@ public class Main {
         }
 
         return new int[]{firstPlayersScore, secondPlayerScore};
+    }
+
+    public void printScore(Point firstPlayerScore, Point secondPlayerScore, int turn) {
+        LOGGER.info(String.format("Turn: %d\nScore: %s - %s\n", turn, firstPlayerScore, secondPlayerScore));
     }
 
     private int countTrue(List<Boolean> list) {

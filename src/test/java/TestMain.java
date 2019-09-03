@@ -37,13 +37,13 @@ public class TestMain {
 
     // Use case 'Print score based on player points and turn'
     @Test
-    public void test_PrintScore_ShouldPrintFortyForty_Success() {
+    public void test_PrintScore_ShouldPrint4040_Success() {
         Main main = new Main();
         Point firstPlayerScore = Point.FORTY;
-        Point scondPlayerScore = Point.FORTY;
+        Point secondPlayerScore = Point.FORTY;
 
-        main.printScore(firstPlayerScore, scondPlayerScore, 1);
+        main.printScore(firstPlayerScore, secondPlayerScore, 1);
 
-        assertThat(StaticAppender.getEvents()).extracting("message").containsOnly("Turn: 1\nScore: Forty - Forty\n");
+        assertThat(StaticAppender.getEvents()).extracting("message").containsOnly("Turn: 1\nScore: 40 - 40\n");
     }
 }
