@@ -1,11 +1,12 @@
 package tennis.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
 
     private String name;
-    private List<Boolean> pointPerRoundList;
+    private List<Boolean> pointPerRoundList = new ArrayList<>();
     private Point score;
 
     public Player() {
@@ -38,5 +39,9 @@ public class Player {
 
     public void setScore(Point score) {
         this.score = score;
+    }
+
+    public void addPoint(boolean won) {
+        pointPerRoundList.add(won);
     }
 }

@@ -5,7 +5,7 @@ public enum Point {
     FIFTEEN("15"),
     THIRTY("30"),
     FORTY("40"),
-    ADVANCE("ADVANCE");
+    ADVANTAGE("ADVANTAGE");
 
     private final String val;
 

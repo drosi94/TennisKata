@@ -58,12 +58,12 @@ public class TestGameState {
         Player player2 = new Player();
         GameState gameState = new GameState(player1, player2);
         player1.setScore(Point.FORTY);
-        player2.setScore(Point.ADVANCE);
+        player2.setScore(Point.ADVANTAGE);
         gameState.setTurn(7);
 
         gameState.printScore();
 
-        assertThat(StaticAppender.getEvents()).extracting("message").containsOnly("Turn: 7\nScore: 40 - ADVANCE\n");
+        assertThat(StaticAppender.getEvents()).extracting("message").containsOnly("Turn: 7\nScore: 40 - ADVANTAGE\n");
     }
 
     // Use case 'Check if game is finished and calculate the winner'

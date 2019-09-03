@@ -25,6 +25,7 @@ public class GameState {
 
     public void calculateScore() {
         if (gameFinished) {
+            LOGGER.error("GameState: calculateScore() fatal exception");
             throw new GameAlreadyFinishedException("The game has already finished. You can not calculate the score.");
         }
         int firstsPlayerWins = countTrue(player1.getPointPerRoundList());
@@ -38,14 +39,14 @@ public class GameState {
             secondPlayerScore = Point.fromInteger(secondsPlayerWins * 15 - (secondsPlayerWins == 3 ? 5 : 0));
         } else {
             if (scoreDifference == 1) {
-                firstPlayersScore = Point.ADVANCE;
+                firstPlayersScore = Point.ADVANTAGE;
                 secondPlayerScore = Point.FORTY;
             } else if (scoreDifference == 0) {
                 firstPlayersScore = Point.FORTY;
                 secondPlayerScore = Point.FORTY;
             } else {
                 firstPlayersScore = Point.FORTY;
-                secondPlayerScore = Point.ADVANCE;
+                secondPlayerScore = Point.ADVANTAGE;
             }
         }
 
