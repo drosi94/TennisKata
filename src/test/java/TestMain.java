@@ -1,4 +1,7 @@
 import org.junit.Test;
+
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class TestMain {
@@ -7,9 +10,9 @@ public class TestMain {
     @Test
     public void test_CalculateScore() {
         Main main = new Main();
-        Boolean[] points ={true, false, false};
+        Boolean[] pointPerRound ={true, false, false};
 
-        int score = main.calculateScore(points);
+        int score = main.calculateScore(Arrays.asList(pointPerRound));
 
         assertEquals(15, score);
     }
