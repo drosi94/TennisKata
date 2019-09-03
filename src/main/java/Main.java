@@ -1,3 +1,5 @@
+import tennis.model.Player;
+
 import java.util.List;
 
 /**
@@ -6,9 +8,9 @@ import java.util.List;
  * @author vdrosatos
  */
 public class Main {
-    public int[] calculateScore(List<Boolean> pointPerRoundFirstPlayer, List<Boolean> pointPerRoundSecondPlayer) {
-        int firstsPlayerWins = countTrue(pointPerRoundFirstPlayer);
-        int secondsPlayerWins = countTrue(pointPerRoundSecondPlayer);
+    public int[] calculateScore(Player player1, Player player2) {
+        int firstsPlayerWins = countTrue(player1.getPointPerRoundList());
+        int secondsPlayerWins = countTrue(player2.getPointPerRoundList());
         int scoreDifference = firstsPlayerWins - secondsPlayerWins;
              int firstPlayersScore;
         int secondPlayerScore;
