@@ -32,6 +32,8 @@ The cycle was:
 * Create code just to pass the test
 * Refactor code and the test if it was needed
 
+The tests ar structured with the AAA approach, using 3 blocks for Arrange-Assign-Assert.
+
 At the end some small refactoring in code and testing.
 
 Total Coverage 70%
@@ -64,7 +66,7 @@ Score: 30 - 30
 14:40:27.389 [main] INFO tennis.GameState - Turn: 5
 Score: 30 - 40
 
-14:40:27.389 [main] INFO tennis.GameState - Game winner: Ioannis
+14:40:27.389 [main] INFO tennis.Game - Game winner: Ioannis
 Score: 30 - 40 at turn 6
 
 
