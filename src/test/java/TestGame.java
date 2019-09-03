@@ -26,7 +26,12 @@ public class TestGame {
     // Test use case of playing a round with random winner
     @Test
     public void test_PlayPoint_ShouldBeInRange01_Success() {
-        int point = game.playPoint();
-        assertTrue(point == 1 || point == 0);
+        int point;
+
+        for (int i = 0; i < 100; i++) {
+            point = game.playPoint();
+
+            assertTrue(point == 1 || point == 0);
+        }
     }
 }
