@@ -48,4 +48,20 @@ public class TestGameState {
 
         assertThat(StaticAppender.getEvents()).extracting("message").containsOnly("Turn: 7\nScore: 40 - ADVANCE\n");
     }
+
+    // Use case 'Check if game is finished and calculate the winner'
+    public void test_CalculateWinner_ShouldGameNotFinished_Success() {
+        Player player1 = new Player();
+        Player player2 = new Player();
+        GameState gameState = new GameState(player1, player2);
+        Boolean[] pointPerRoundFirstPlayer ={true, false, false, false};
+        Boolean[] pointPerRoundSecondPlayer ={false, true, true, true};
+        player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
+        player2.setPointPerRoundList(Arrays.asList(pointPerRoundSecondPlayer));
+
+        gameState.calculateWinner();
+
+        assertFalse(gameState.isGameFinished());
+        assertNull(gameState.getWinner());
+    }
 }
