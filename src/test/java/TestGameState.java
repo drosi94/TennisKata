@@ -1,5 +1,6 @@
 import exception.GameAlreadyFinishedException;
 import logging.StaticAppender;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +15,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestGameState {
 
+    private Player player1, player2;
+    private GameState gameState;
+
+    @Before
+    public void beforeAll() {
+        player1 = new Player();
+        player2 = new Player();
+        gameState = new GameState(player1, player2);
+    }
+
     @BeforeEach
     public void clearLoggingStatements() {
         StaticAppender.clearEvents();
@@ -22,9 +33,6 @@ public class TestGameState {
     // Use case 'Calculate game score based on the points'
     @Test
     public void test_CalculateScore_ShouldBe1540_Success() {
-        Player player1 = new Player();
-        Player player2 = new Player();
-        GameState gameState = new GameState(player1, player2);
         Boolean[] pointPerRoundFirstPlayer ={true, false, false, false};
         Boolean[] pointPerRoundSecondPlayer ={false, true, true, true};
         player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
@@ -38,9 +46,6 @@ public class TestGameState {
 
     @Test
     public void test_CalculateScore_ShouldBe40ADVANTAGE_Success() {
-        Player player1 = new Player();
-        Player player2 = new Player();
-        GameState gameState = new GameState(player1, player2);
         Boolean[] pointPerRoundFirstPlayer ={true, false, true, true, false, false, false};
         Boolean[] pointPerRoundSecondPlayer ={false, true, false, false, true, true, true};
         player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
@@ -54,9 +59,6 @@ public class TestGameState {
 
     @Test
     public void test_CalculateScore_ShouldBe4040_Success() {
-        Player player1 = new Player();
-        Player player2 = new Player();
-        GameState gameState = new GameState(player1, player2);
         Boolean[] pointPerRoundFirstPlayer ={true, false, true, true, false, false};
         Boolean[] pointPerRoundSecondPlayer ={false, true, false, false, true, true};
         player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
@@ -70,9 +72,6 @@ public class TestGameState {
 
     @Test
     public void test_CalculateScore_ShouldBeADVANTAGE40_Success() {
-        Player player1 = new Player();
-        Player player2 = new Player();
-        GameState gameState = new GameState(player1, player2);
         Boolean[] pointPerRoundFirstPlayer ={true, false, true, true, false, false, true};
         Boolean[] pointPerRoundSecondPlayer ={false, true, false, false, true, true, false};
         player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
@@ -86,9 +85,6 @@ public class TestGameState {
 
     @Test
     public void test_CalculateScore_ShouldThrowGameAlreadyFinishedException_Fail() {
-        Player player1 = new Player();
-        Player player2 = new Player();
-        GameState gameState = new GameState(player1, player2);
         Boolean[] pointPerRoundFirstPlayer ={false, true, false, true, true, false, true, true};
         Boolean[] pointPerRoundSecondPlayer ={true, false, true, false, false, true, false, false};
         player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
@@ -102,9 +98,6 @@ public class TestGameState {
     // Use case 'Print score based on player points and turn'
     @Test
     public void test_PrintScore_ShouldPrint40ADVANTAGE_Success() {
-        Player player1 = new Player();
-        Player player2 = new Player();
-        GameState gameState = new GameState(player1, player2);
         player1.setScore(Point.FORTY);
         player2.setScore(Point.ADVANTAGE);
         gameState.setTurn(7);
@@ -117,9 +110,6 @@ public class TestGameState {
     // Use case 'Check if game is finished and calculate the winner'
     @Test
     public void test_CalculateWinner_ShouldGameNotFinished_Success() {
-        Player player1 = new Player();
-        Player player2 = new Player();
-        GameState gameState = new GameState(player1, player2);
         Boolean[] pointPerRoundFirstPlayer ={true, false, false, false};
         Boolean[] pointPerRoundSecondPlayer ={false, true, true, true};
         player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
@@ -133,9 +123,6 @@ public class TestGameState {
 
     @Test
     public void test_CalculateWinner_ShouldGameFinishedAndPlayer1Won_Success() {
-        Player player1 = new Player();
-        Player player2 = new Player();
-        GameState gameState = new GameState(player1, player2);
         Boolean[] pointPerRoundFirstPlayer ={false, true, false, true, true, false, true, true};
         Boolean[] pointPerRoundSecondPlayer ={true, false, true, false, false, true, false, false};
         player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
@@ -149,9 +136,6 @@ public class TestGameState {
 
     @Test
     public void test_CalculateWinner_ShouldGameFinishedAndPlayer2WonSimple_Success() {
-        Player player1 = new Player();
-        Player player2 = new Player();
-        GameState gameState = new GameState(player1, player2);
         Boolean[] pointPerRoundFirstPlayer ={true, false, false, false, false};
         Boolean[] pointPerRoundSecondPlayer ={false, true, true, true, true};
         player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
@@ -165,9 +149,6 @@ public class TestGameState {
 
     @Test
     public void test_CalculateWinner_ShouldGameFinishedAndPlayer2WonComplicated_Success() {
-        Player player1 = new Player();
-        Player player2 = new Player();
-        GameState gameState = new GameState(player1, player2);
         Boolean[] pointPerRoundFirstPlayer ={true, false, true, false, true, false, false, true, false, false};
         Boolean[] pointPerRoundSecondPlayer ={false, true, false, true, false, true, true, false, true, true};
         player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
