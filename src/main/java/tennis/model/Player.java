@@ -6,6 +6,7 @@ public class Player {
 
     private String name;
     private List<Boolean> pointPerRoundList;
+    private Point score;
 
     public Player() {
         this.name = "John Doe";
@@ -29,5 +30,13 @@ public class Player {
 
     public void setPointPerRoundList(List<Boolean> pointPerRoundList) {
         this.pointPerRoundList = pointPerRoundList;
+    }
+
+    public Point getScore() {
+        return score;
+    }
+
+    public void setScore(Point score) {
+        this.score = score;
     }
 }

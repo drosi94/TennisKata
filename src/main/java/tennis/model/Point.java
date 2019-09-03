@@ -13,6 +13,20 @@ public enum Point {
         this.val = val;
     }
 
+    public static Point fromInteger(int n) {
+        switch (n) {
+            case 0:
+                return Point.LOVE;
+            case 15:
+                return Point.FIFTEEN;
+            case 30:
+                return Point.THIRTY;
+            case 40:
+                return Point.FORTY;
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return val;
