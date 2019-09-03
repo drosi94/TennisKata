@@ -37,6 +37,54 @@ public class TestGameState {
     }
 
     @Test
+    public void test_CalculateScore_ShouldBe40ADVANTAGE_Success() {
+        Player player1 = new Player();
+        Player player2 = new Player();
+        GameState gameState = new GameState(player1, player2);
+        Boolean[] pointPerRoundFirstPlayer ={true, false, true, true, false, false, false};
+        Boolean[] pointPerRoundSecondPlayer ={false, true, false, false, true, true, true};
+        player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
+        player2.setPointPerRoundList(Arrays.asList(pointPerRoundSecondPlayer));
+
+        gameState.calculateScore();
+
+        assertEquals(Point.FORTY, player1.getScore());
+        assertEquals(Point.ADVANTAGE, player2.getScore());
+    }
+
+    @Test
+    public void test_CalculateScore_ShouldBe4040_Success() {
+        Player player1 = new Player();
+        Player player2 = new Player();
+        GameState gameState = new GameState(player1, player2);
+        Boolean[] pointPerRoundFirstPlayer ={true, false, true, true, false, false};
+        Boolean[] pointPerRoundSecondPlayer ={false, true, false, false, true, true};
+        player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
+        player2.setPointPerRoundList(Arrays.asList(pointPerRoundSecondPlayer));
+
+        gameState.calculateScore();
+
+        assertEquals(Point.FORTY, player1.getScore());
+        assertEquals(Point.FORTY, player2.getScore());
+    }
+
+    @Test
+    public void test_CalculateScore_ShouldBeADVANTAGE40_Success() {
+        Player player1 = new Player();
+        Player player2 = new Player();
+        GameState gameState = new GameState(player1, player2);
+        Boolean[] pointPerRoundFirstPlayer ={true, false, true, true, false, false, true};
+        Boolean[] pointPerRoundSecondPlayer ={false, true, false, false, true, true, false};
+        player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
+        player2.setPointPerRoundList(Arrays.asList(pointPerRoundSecondPlayer));
+
+        gameState.calculateScore();
+
+        assertEquals(Point.ADVANTAGE, player1.getScore());
+        assertEquals(Point.FORTY, player2.getScore());
+    }
+
+    @Test
     public void test_CalculateScore_ShouldThrowGameAlreadyFinishedException_Fail() {
         Player player1 = new Player();
         Player player2 = new Player();
@@ -53,7 +101,7 @@ public class TestGameState {
 
     // Use case 'Print score based on player points and turn'
     @Test
-    public void test_PrintScore_ShouldPrint40ADVANCE_Success() {
+    public void test_PrintScore_ShouldPrint40ADVANTAGE_Success() {
         Player player1 = new Player();
         Player player2 = new Player();
         GameState gameState = new GameState(player1, player2);
@@ -84,7 +132,23 @@ public class TestGameState {
     }
 
     @Test
-    public void test_CalculateWinner_ShouldGameFinishedAndPlayer2Won_Success() {
+    public void test_CalculateWinner_ShouldGameFinishedAndPlayer1Won_Success() {
+        Player player1 = new Player();
+        Player player2 = new Player();
+        GameState gameState = new GameState(player1, player2);
+        Boolean[] pointPerRoundFirstPlayer ={false, true, false, true, true, false, true, true};
+        Boolean[] pointPerRoundSecondPlayer ={true, false, true, false, false, true, false, false};
+        player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
+        player2.setPointPerRoundList(Arrays.asList(pointPerRoundSecondPlayer));
+
+        gameState.calculateWinner();
+
+        assertTrue(gameState.isGameFinished());
+        assertSame(player1, gameState.getWinner());
+    }
+
+    @Test
+    public void test_CalculateWinner_ShouldGameFinishedAndPlayer2WonSimple_Success() {
         Player player1 = new Player();
         Player player2 = new Player();
         GameState gameState = new GameState(player1, player2);
@@ -100,18 +164,18 @@ public class TestGameState {
     }
 
     @Test
-    public void test_CalculateWinner_ShouldGameFinishedAndPlayer1Won_Success() {
+    public void test_CalculateWinner_ShouldGameFinishedAndPlayer2WonComplicated_Success() {
         Player player1 = new Player();
         Player player2 = new Player();
         GameState gameState = new GameState(player1, player2);
-        Boolean[] pointPerRoundFirstPlayer ={false, true, false, true, true, false, true, true};
-        Boolean[] pointPerRoundSecondPlayer ={true, false, true, false, false, true, false, false};
+        Boolean[] pointPerRoundFirstPlayer ={true, false, true, false, true, false, false, true, false, false};
+        Boolean[] pointPerRoundSecondPlayer ={false, true, false, true, false, true, true, false, true, true};
         player1.setPointPerRoundList(Arrays.asList(pointPerRoundFirstPlayer));
         player2.setPointPerRoundList(Arrays.asList(pointPerRoundSecondPlayer));
 
         gameState.calculateWinner();
 
         assertTrue(gameState.isGameFinished());
-        assertSame(player1, gameState.getWinner());
+        assertSame(player2, gameState.getWinner());
     }
 }
