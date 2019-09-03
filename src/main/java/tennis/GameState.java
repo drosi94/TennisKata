@@ -14,6 +14,9 @@ public class GameState {
     private Player player2;
     private int turn;
 
+    private Player winner;
+    private boolean gameFinished;
+
     public GameState(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
@@ -46,6 +49,19 @@ public class GameState {
         player2.setScore(secondPlayerScore);
     }
 
+
+    public void calculateWinner() {
+        int firstsPlayerWins = countTrue(player1.getPointPerRoundList());
+        int secondsPlayerWins = countTrue(player2.getPointPerRoundList());
+        int scoreDifference = firstsPlayerWins - secondsPlayerWins;
+
+        gameFinished = (firstsPlayerWins > 3 || secondsPlayerWins > 3) && (scoreDifference > 1 || scoreDifference < -1);
+
+        if (gameFinished) {
+            winner = scoreDifference > 0 ? player1 : player2;
+        }
+    }
+
     public void printScore() {
         LOGGER.info(String.format("Turn: %d\nScore: %s - %s\n", turn, player1.getScore(), player2.getScore()));
     }
@@ -76,5 +92,21 @@ public class GameState {
 
     public void setTurn(int turn) {
         this.turn = turn;
+    }
+
+    public boolean isGameFinished() {
+        return gameFinished;
+    }
+
+    public void setGameFinished(boolean gameFinished) {
+        this.gameFinished = gameFinished;
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
     }
 }
