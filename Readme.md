@@ -23,36 +23,51 @@ mvn clean test
 ```
 target/site/jacoco/index.html to check the coverage
 
+Used TDD approach
+
+The cycle was:
+
+** For each use case
+* Create failing test
+* Create code just to pass the test
+* Refactor code and the test if it was needed
+
+The tests ar structured with the AAA approach, using 3 blocks for Arrange-Assign-Assert.
+
+At the end some small refactoring in code and testing.
+
+Total Coverage 70%
+
 _Output Example_
 ```bash
-Turn: 1
-Score: Fifteen - Love
-Turn: 2
-Score: Thirty - Love
-Turn: 3
-Score: Forty - Love
-Turn: 4
-Score: Forty - Fifteen
-Turn: 5
-Score: Forty - Thirty
-Turn: 6
-Score: Forty - Forty
-Turn: 7
-Score: Forty - Advance
-Turn: 8
-Score: Forty - Forty
-Turn: 9
-Score: Advance - Forty
-Turn: 10
-Score: Forty - Forty
-Turn: 11
-Score: Advance - Forty
+Give first player's name:
 
-*************
+Vasileios
 
-Winner is player 1 at turn 12
 
-**************
+Give second player's name:
+
+Ioannis
+14:40:27.385 [main] INFO tennis.GameState - Turn: 0
+Score: 0 - 0
+
+14:40:27.388 [main] INFO tennis.GameState - Turn: 1
+Score: 0 - 15
+
+14:40:27.389 [main] INFO tennis.GameState - Turn: 2
+Score: 15 - 15
+
+14:40:27.389 [main] INFO tennis.GameState - Turn: 3
+Score: 15 - 30
+
+14:40:27.389 [main] INFO tennis.GameState - Turn: 4
+Score: 30 - 30
+
+14:40:27.389 [main] INFO tennis.GameState - Turn: 5
+Score: 30 - 40
+
+14:40:27.389 [main] INFO tennis.Game - Game winner: Ioannis
+Score: 30 - 40 at turn 6
 
 
 ```
